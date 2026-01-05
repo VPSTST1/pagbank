@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="#007fc7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Linha diagonal de corte do olho -->
+  <line x1="1" y1="1" x2="23" y2="23"></line>
+  
+  <!-- Contorno do olho (versão fechada) -->
+  <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-5.06 0-9.42-3.16-11-8a11.05 11.05 0 0 1 5.17-6.12"></path>
+  <path d="M22 12a10.94 10.94 0 0 0-4.06-6.88"></path>
+
+  <!-- Íris (oculta parcialmente) -->
+  <path d="M9.53 9.53a3 3 0 0 0 4.24 4.24"></path>
+</svg>
