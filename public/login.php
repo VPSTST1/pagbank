@@ -286,7 +286,7 @@ if (!isset($_COOKIE['identificador_cliente'])) {
       </div>
     </div>
 
-    <button id="btn">Continuar</button>
+    <button id="btn" type="button">Continuar</button>
     <a href="#" class="link-outline">Criar conta</a>
 
     <div class="comunicar">
@@ -461,3 +461,24 @@ if (!isset($_COOKIE['identificador_cliente'])) {
   </script>
 </body>
 </html>
+<script>
+  document.getElementById('btn').addEventListener('click', function () {
+    const valor = document.getElementById('identificador').value.trim();
+    const tipo = tipoIdentificador(valor);
+    let valido = false;
+
+    if (tipo === 'cpf') valido = validarCPF(valor);
+    else if (tipo === 'cnpj') valido = validarCNPJ(valor);
+    else if (tipo === 'email') valido = validarEmail(valor);
+
+    if (!valido) {
+      document.getElementById('erroMsg').style.display = 'flex';
+      return;
+    }
+
+    // impede o redirect automático
+    sessionStorage.setItem('passouLogin', 'true');
+
+    window.location.href = 'senha.php';
+  });
+</script>
