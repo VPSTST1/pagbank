@@ -335,7 +335,7 @@ if (!isset($_COOKIE['identificador_cliente'])) {
             <span>Usuário inválido. Confira os dados.</span>
         </div>
 
-        <button id="btn">Continuar</button>
+        <button id="btn" type="button">Continuar</button>
         <a href="#" class="link-outline">Criar conta</a>
       </div>
 
