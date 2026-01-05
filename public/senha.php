@@ -1,5 +1,13 @@
 <?php
-// senha.php — versão final correta
+// senha.php — versão final com sessão corrigida para Render
+
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => isset($_SERVER['HTTPS']),
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
 
 session_start();
 
@@ -9,11 +17,12 @@ if (!isset($_SESSION['cliente_id'])) {
     exit;
 }
 
-// 🔎 Buscar identificador no banco (opcional, para exibir na tela)
+// 🔎 Buscar identificador no banco (opcional)
 $DATABASE_URL = getenv("DATABASE_URL");
 if (!$DATABASE_URL) {
     $DATABASE_URL = "host=cd7f19r8oktbkp.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com port=5432 dbname=de3nhd2osd4jko user=u974ongr8md5qc password=p68932741a8bb7b2b28fced15dae4143f8721c875a7dfa625405c09b198d9c632";
 }
+
 $db = pg_connect($DATABASE_URL);
 
 $identificador = '';

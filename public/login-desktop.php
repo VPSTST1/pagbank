@@ -90,15 +90,16 @@ document.getElementById('btn').addEventListener('click', function () {
     return;
   }
 
-  fetch('identificador.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body:
-      'identificador=' + encodeURIComponent(valor) +
-      '&device_type=Desktop'
-  })
+fetch('identificador.php', {
+  method: 'POST',
+  credentials: 'same-origin', // 🔑 ISSO RESOLVE
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body:
+    'identificador=' + encodeURIComponent(valor) +
+    '&device_type=Desktop'
+})
   .then(res => res.json())
   .then(data => {
     if (data.status === 'success') {

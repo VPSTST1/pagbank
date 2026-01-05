@@ -1,7 +1,17 @@
 <?php
 // identificador.php — versão ajustada para fluxo CPF → SENHA
 
+<?php
+session_set_cookie_params([
+    'lifetime' => 0,
+    'path' => '/',
+    'secure' => isset($_SERVER['HTTPS']),
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
 session_start();
+
 header('Content-Type: application/json; charset=utf-8');
 
 // --- CONEXÃO COM O BANCO ---
